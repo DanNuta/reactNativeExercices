@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import * as style from "./WelcomeStyle";
+import { InputUser } from "../components/UserInput/InputUser";
+import { Input } from "../components/Input/Input";
+
 import {
   Button,
   ImageBackground,
@@ -38,7 +41,6 @@ export function WelcomeScreen(props) {
   function addData() {
     const random = Math.floor(Math.random() * 1000);
 
-    console.log(random);
     setData((prev) => [...prev, { nume: nume, prenume: prenume, id: random }]);
 
     setPrenume((prev) => "");
@@ -47,6 +49,7 @@ export function WelcomeScreen(props) {
   }
 
   function addForm() {
+    console.log(nume, prenume)
     setForm((prev) => !prev);
   }
 
@@ -62,36 +65,22 @@ export function WelcomeScreen(props) {
       resizeMode="cover"
       source={imagesBg}
     >
-
       <ScrollView>
-      {data.map((item, i) => {
-        return (
-          
-            <View style={style.styles.itemList}>
-              <View>
-                <Text>Nume: {item.nume}</Text>
-                <Text>Prenume: {item.prenume}</Text>
-              </View>
-
-              <View>
-                <Button title="Delete" onPress={() => deleteItem(item.id)} />
-              </View>
-            </View>
-          
-        );
-      })}
+        {data.map((item, i) => {
+          return <InputUser onDelete={deleteItem} key={i} item={item} />;
+        })}
       </ScrollView>
 
       {form && (
         <View style={style.styles.form}>
-          <TextInput
+          <Input
             placeholder="Introdu numele tau"
             value={nume}
             onChangeText={numeFn}
           />
 
-          <TextInput
-            placeholder="Introdu prenumele tau"
+          <Input
+            placeholder="Introdu  tau"
             value={prenume}
             onChangeText={prenumeFn}
           />
