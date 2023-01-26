@@ -32,14 +32,6 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  form: {
-    backgroundColor: "pink",
-  },
-
-  btnLogin: {
-    flexDirection: "row",
-  },
-
   itemList: {
     backgroundColor: "lightblue",
     width: "100%",

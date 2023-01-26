@@ -1,16 +1,14 @@
 import React, { useState } from "react";
 import * as style from "./WelcomeStyle";
 import { InputUser } from "../components/UserInput/InputUser";
-import { Input } from "../components/Input/Input";
+import { Form } from "../components/Form/Form";
 
 import {
   Button,
   ImageBackground,
-  StyleSheet,
   View,
   Image,
   Text,
-  TextInput,
   ScrollView,
 } from "react-native";
 
@@ -26,30 +24,20 @@ const imagesLogo = {
 
 export function WelcomeScreen(props) {
   const [form, setForm] = useState(false);
-  const [nume, setNume] = useState("");
-  const [prenume, setPrenume] = useState("");
   const [data, setData] = useState([]);
 
-  function numeFn(value) {
-    setNume((prev) => value);
-  }
-
-  function prenumeFn(value) {
-    setPrenume((prev) => value);
-  }
-
-  function addData() {
+  function addData(nume, prenume) {
     const random = Math.floor(Math.random() * 1000);
+
+    console.log(nume, prenume)
 
     setData((prev) => [...prev, { nume: nume, prenume: prenume, id: random }]);
 
-    setPrenume((prev) => "");
-    setNume((prev) => "");
     setForm((prev) => !prev);
   }
 
   function addForm() {
-    console.log(nume, prenume)
+
     setForm((prev) => !prev);
   }
 
@@ -72,24 +60,9 @@ export function WelcomeScreen(props) {
       </ScrollView>
 
       {form && (
-        <View style={style.styles.form}>
-          <Input
-            placeholder="Introdu numele tau"
-            value={nume}
-            onChangeText={numeFn}
-          />
-
-          <Input
-            placeholder="Introdu  tau"
-            value={prenume}
-            onChangeText={prenumeFn}
-          />
-
-          <View style={style.styles.btnLogin}>
-            <Button title="Submit" onPress={addData} />
-            <Button title="Cancel" color="tomato" onPress={addForm} />
-          </View>
-        </View>
+       <Form onAddData={addData} 
+             onAddForm={addForm}
+             />
       )}
 
       <View style={style.styles.loginRed}>
